@@ -1,0 +1,42 @@
+NUME: ANDRONIC DRAGOS SEBASTIAN GRUPA: 324CD
+
+In functia main aloc memorie pentru directorul home, iar in do-while citesc comenzile
+din stdin folosind fscanf si compar fiecare comanda folosind strcmp, daca aceasta are 
+un argument aloc memorie pentru ce citesc cu fscanf si folosesc strcpy pentru a copia
+continutul in alt string, astfel nu voi trimite ca parametru o zona de memorie constanta.
+Pentru a opri functionarea programului verific daca comanda citita nu este cea de stop 
+ce dezaloca toate structurile din memorie (am folosit o copie a adresei directorului home).
+
+touch: aloc memorie pentru structura, copiez numele dat ca parametru, daca acesta este deja
+existent dezaloc memoria alocata si afisez mesajul specificat in enunt cu functia print_stdout_file
+daca numele nu este deja folosit iterez prin lista de fisiere si adaug elementul la final
+
+mkdir: aloc memorie pentru structura, copiez numele dat ca parametru, daca acesta este deja
+existent dezaloc memoria alocata si afisez mesajul specificat in enunt cu functia print_stdout_dir
+daca numele nu este deja folosit iterez prin lista de directoare si adaug elementul la final
+
+ls: ma folosesc de funtiile print_dir si print_file pentru a itera si afisa listele date ca parametru
+
+rm: iterez prin lista de fisiere si tratez 3 cazuri (elementul cautat e la inceputul, in sau la finalul listei) si
+dezaloc elementul daca nu il gasesc afisez mesajul specificat in enunt
+
+rmdir: iterez prin lista de directoare si tratez 3 cazuri (elementul cautat e la inceputul, in sau la finalul listei)
+si dezaloc elementul si lista s-a de fisiere (folosind functia del_file), daca nu il gasesc afisez mesajul specificat
+in enunt
+
+cd: functia primeste adresa directorului trimis ca parametru si iterez prin lista de directoare, daca numele 
+trimis ca parametru este ".." adresa se va schimba in adresa parintelui adresei trimise ca parametru, altfel
+iterez prin lista de directoare pentru a gasi directorul potrivit
+
+tree: ma folosesc de functiile print_dir_level si print_file_level pentru a face afisarea, tree este implementat recursiv
+astfel incat verifica daca directorul curent are o lista de directoare incat sa le afiseze 
+
+pwd: aloc memorie pentru stringul final, creez stiva (crateStack()), introduc numele
+directoarelor parinte in stiva (push()) si le adaug in string (folosind strcat si pop()), eliberez stiva
+si returnez stringul final
+
+stop: ma folosesc de functiile free_dir si free_file pentru a dezaloca listele de fisiere si directoare
+
+mv: ma folosesc de functiile find_file si find_dir pentru pentru a vedea daca oldname exista in listele de fisiere/directoare
+si daca newname nu este deja folosit apoi iterez in listele de directoare si fisiere pentru a face mutarea
+
