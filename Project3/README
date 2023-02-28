@@ -1,0 +1,26 @@
+ANDRONIC DRAGOS SEBASTIAN, GRUPA: 315CD
+
+Bibilioteca folosita : "jsmn.h". Am folosit-o pentru ca e o biblioteca 
+cu putine functii si e destul de practica si usor de inteles.
+
+Task1
+Am verificat daca cel de-al doilea argument este diferit de 3, am calculat
+lungimea fisierului de input prin functia lenght, am alocat memorie unui pointer
+de tip jsmntok_t si am parsat datele primite din fisierul json.
+Am format fisierele de output de la taskuri, am format functia parse care calculeaza 
+compara lungimea tokenilor obtinuti in urma parsarii cu numele key-urilor din fisierul
+json si am atribuit datele din fisier in file_header-ul si info_headerul fisierelor
+bmp din output. M-am folosit si de functia numar care calculeaza valoarea unor date
+de tip char.
+Am alocat memorie unei matrice de 3 dimensiuni pentru a pune datele din bitmap intr-o
+in acea matrice. 
+
+Task2
+Am format si fisierele de output pentru task-ul 2 si m-am folosit de functiile
+fix si swap pentru a schimba datele intre pixelii fisierului bmp.
+
+Task3
+Am format fisierele de output pentru task-ul 3, am alocat memorie matricei tabla si am verificat
+fiecare numar din tabla de joc, si am adaugat valorile in matricea tabla, iar apoi am calculat daca
+suma pe liniile tablei si daca difera de 45 eliberez memoria si returnez 0. La final in functie de return
+afisez cele doua mesaje in format json.
