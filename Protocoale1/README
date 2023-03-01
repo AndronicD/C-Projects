@@ -1,0 +1,16 @@
+Nume: Andronic Dragos Sebastian
+Grupa: 324CDa
+
+In cadrul temei am rezolvat cerintele de Forwarding, ICMP si LPM
+
+Am alocat memorie pentru tabela de rutare (pe care am sortat-o cu qsort) si tabela ARP statica
+In while am extras headerele de Ethernet, IPv4 si ICMP. Am verificat daca pachetul este corupt, 
+daca e adevarat i-am dat drop, apoi am verificat daca mesajul este destinat router-ului si daca
+este de tipul ICMP_ECHO. In caz afirmativ ma folosesc de functia send_icmp_packet (care creeaza 
+si trimite un pachet de tip-ul ICMP) sa trimit reply. Decrementez TTL-ul (daca are o valoare mai 
+mica sau egala cu 1 trimit un mesaj ICMP de TTL_EXCEEDED) si recalculez checksum-ul,
+caut in tabela de rutare (daca nu am gasit o ruta trimit un pachet ICMP de destination unreachable)
+si in cea de arp cea mai buna ruta catre destinatie si trimit pachetul.
+
+Pentru partea de LPM am implementat binary_search, dar doar pe o anumita parte din teste reuseste 
+sa imi treaca.

@@ -1,0 +1,62 @@
+Nume: Andronic Dragos Sebastian
+Grupa: 324CD
+
+Scheletul de cod (din client.c) este preluat din laboratorul 10 de HTTP precum
+si fisierele sursa, fisierle header si Makefile-ul (cu mentiunea ca am modificat 
+adaugat si parametrul de token si am creat functia compute_delete_request utilizata 
+in delete_book pentru a trimite o cerere de a sterge un obiect JSON). 
+
+Pentru parsarea obiectelor JSON am ales biblioteca parson.c. In implementare
+m-am inspirat din tutorialul pe care autorul acestei biblioteci a pus-o la
+dispozitie (pentru parsarea unui obiect sau array de obiecte JSON, sau crearea
+unui obiect JSON).
+
+Flow-ul implementarii: citesc de la intrarea standard o anumita comanda si in 
+functie de comanda primita realizez actiunile specifice comenzii.
+
+Comanda register: citesc de la intrarea standard numele de utilizator si parola
+iar in functia register_func ma conectez la server, creez un obiect JSON cu 
+valorile citite si trimit cererea de tip POST la server, iar in functie de valoarea 
+codului primit in raspuns realizez anumite afisari (daca a fost inregistrarea realizata 
+cu succes sau am primit un mesaj de eroare).
+
+Comanda login: in cazul in care clientul nu este conectat deja la server,
+citesc de la intrarea standard numele de utilizator si parola
+iar in functia login_func ma conectez la server, creez un obiect JSON cu 
+valorile citite si trimit cererea de tip POST la server, iar in functie de valoarea 
+codul primit in raspuns realizez anumite afisari si intorc valoarea cookie-ului
+(daca a fost autentificarea realizata cu succes sau am primit un mesaj de eroare).
+
+Comanda enter_library: in functia enter_library ma conectez la server, trimit
+o cerere de tip GET, iar in functie de valoarea codului primit in raspuns realizez
+anumite afisari si intorc valoarea token-ului (daca intrarea in biblioteca a fost realizata 
+cu succes sau am primit un mesaj de eroare).
+
+Comanda get_books: in functia get_books ma conectez la server, trimit
+o cerere de tip GET, iar in functie de valoarea codului primit in raspuns realizez
+afisarea array-ului de obiecte JSON (sau daca am primit un mesaj de eroare). 
+
+Comanda get_book: citesc de la intrarea standard id-ul obiectului JSON, iar in cazul 
+in care formatul este corect in functia get_book ma conectez la server, trimit
+o cerere de tip GET, iar in functie de valoarea codului primit in raspuns realizez
+afisarea obiectului cu respectivul id (sau daca am primit un mesaj de eroare).
+
+Comanda add_book: citesc de la intrarea standard informatiile necesare (titlu, autor
+gen, publisher, numar de pagini), in cazul in care formatul numarului de pagini este 
+corect in functia add_book ma conectez la server, trimit
+o cerere de tip POST, iar in functie de valoarea codului primit in raspuns realizez
+anumite afisari (daca adaugarea unei carti a fost realizata cu succes sau 
+am primit un mesaj de eroare).
+
+Comanda delete_book: citesc de la intrarea standard id-ul obiectului JSON, iar in cazul 
+in care formatul este corect in functia delete_book ma conectez la server, trimit
+o cerere de tip DELETE, iar in functie de valoarea codului primit in raspuns realizez
+afisarea obiectului cu respectivul id (sau am primit un mesaj de eroare).
+
+Comanda logout: in functia logout_func ma conectez la server, trimit
+o cerere de tip GET, iar in functie de valoarea codului primit in raspuns realizez
+anumite afisari (daca delogara unei carti a fost realizata cu succes sau 
+am primit un mesaj de eroare).
+
+Comanda exit: ies din bucla while si dealoc zona de memorie retinuta in variabila 
+cookies si token in cazul in care exista memorie alocata.
