@@ -1,0 +1,31 @@
+Nume: Andronic Dragos Sebastian
+Grupa: 336CC
+
+Am lucrat in fisierele osmem.c si helpers.h
+
+osmem.c: 
+- functia coalesce: parcurge lista de blocuri si uneste folosind functia coal doua blocuri de date marcate ca free;
+
+- functia try_split: face split la un bloc de date doar in cazul in care are memorie pentru cel putin un header si
+un byte (aliniate ambele) -> implementare inspirata din https://moss.cs.iit.edu/cs351/slides/slides-malloc.pdf;
+
+- functia findbest: cauta un bloc de date free cu dimensiune cat mai apropiata de cea ceruta;
+
+- os_malloc: daca size = 0 intoarce NULL, daca dimensiunea e mai mare de threshold adaug element in lista de blocuri
+alocate cu mmap, iar pentru un bloc de date mai mic prealoc memorie pentru o heap, apelez functia coalesce, apoi findbest,
+in cazul in care am gasit un bloc liber apelez functia try_split, in caz contrar maresc dimensiunea heap-ului;
+
+-os_free: daca blocul de date e alocat cu mmap face munmap pe zona respectiva, altfel doar noteaza blocul de date ca fiind
+free
+
+-os_calloc: in cazul in care trebuie alocata o dimensiune mai mare decat o pagina ma folosesc de lista de blocuri alocate
+cu mmap, altfel aloc blocul de date cu malloc si setez memoria la 0
+
+-os_realloc: doua verificari simple, functie neimplementata
+
+helpers.h:
+-functia ALIGN: preluata din https://moss.cs.iit.edu/cs351/slides/slides-malloc.pdf
+-contine functii de initializare lista si alocare sau stergere noduri
+
+-functia try_expand: verifica daca ultimul bloc este free
+-functia coal: coalesce intre doua blocuri free
