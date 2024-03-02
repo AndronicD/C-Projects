@@ -1,0 +1,33 @@
+NUME: Andronic Dragos Sebastian
+GRUPA: 342C3
+
+Headers:
+-inputReader.c/inputReader.h: definesc functii pentru citirea din fisierele de input si operatii care lucreaza cu lista de permisiuni
+-structs.h: definesc structuri pentru informatiile retinute in baza de date (lista simplu inlantuita)
+si lista de permisiuni (coada de liste simplu inlantuite)
+-userData.c/userdata.h: operatii pe baza de date (add, find, create row)
+-verify.c/verify.h: operatii ce fac verificari pe datele de input (lista de useri, lista de resurse, lista de permisiuni)
+
+client.c:
+-citeste toate liniile din client.in, verifica mai intai daca trebuie sa faca renew de token-ul de access
+apoi verifica daca actiunea e de tipul request sau validate, construieste si trimite request si afiseaza
+raspunsul, modfica datele unui user in baza de date
+
+server.c:
+-creeaza si trimite raspunsuri pe baza cererilor primite de la client in functie de actiunea ceruta si
+modifica datele unui user in baza de date si face afisarile corespunzatoare
+
+application.x:
+-definesc 10 structuri de date pentru 5 tipuri de actiuni:
+      -authenticate: creeaza un token de acces daca exita user-ul in lista de useri
+      -approve: daca userul are permisiuni (diferite de *,-) acesta semneaza token-ul, altfel nu
+      -bearer: creeaza token de access si in cazul in care user-ul are marcat refresh automat, creeaza si token-ul de refresh
+      -renew_bearer: creeaza noi tokeni de access si refresh 
+      -validate_action: verifica daca cererea de validare a actiunii este valida (userul are token de access, 
+      token-ul nu a expirat, resursa exista, user-ul are permisiunile corespunzatoare)
+
+Am inclus si un fisier de makefile ce imi compileaza server.c si client.c. Am folosit rpcgen pentru a genera fisierele stub 
+deoarece am in main-ul stub-ului de server initializarea pentru baza de date si a listelor de useri, resurse si permisiuni (pe
+care le declar global si le folosesc ca variabile externe in server.c). Nu este nevoie de regenerarea stub-urilor.
+
+Am modificat fisierele de out din teste in sensul ca am adaugat newline la final.
