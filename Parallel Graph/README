@@ -1,0 +1,32 @@
+Nume: Andronic Dragos Sebastian
+Grupa: 336CC
+
+threadpool.c:
+-task_create: alloc memorie pentru un task si il returnez
+-add_task_in_queue: sectiune critica pentru ca pot avea mai multe thread-uri
+care vor sa adauge un task in coada de task-uri. Adaug task-ul la finalul cozii.
+-get_task: sectiune critica pentru ca pot avea mai multe thread-uri ce 
+incearca sa ia acelasi task. Iau primul task si eliberez memoria nodului.
+-threadpool_create: aloc memorie pentru o structura de tip os_threadpool_t,
+thread-uri si lista de task-uri.
+-thread_loop_function: intr-un loop infinit verific daca campul should_stop 
+este setat caz in care se opreste executia loop-ului, apoi ia un task (daca
+nu este niciun task in coada continua executia) si il executa.
+-threadpool_stop: intr-un loop verifica ce intoarce functia processingIsDone
+in cazul in care intoarece valoarea 1 se seteaza campul should_stop din
+threadpool si se da join la thread-uri.
+
+parallel.c:
+-first_unvisited: returneaza primul nod in graf ce nu are campul graph->visited[nod]
+setat pe 1.
+-processNode: am nevoie de un mutex pentru ca thread-urile acceseaza variabilele sum
+si graph declarate global. Preiau nodul dat ca argument, adun valoarea la sum si creez
+noi task-urile pentru nodurile adiacente ce nu au fost vizitate. In cazul in care nodul
+curent are toate nodurile adiacente vizitate consider ca am ajuns la finalul componentei 
+conexe si creez un task pentru primul nod nevizitat din graf.
+-processingIsDone: returneaza 1 doar daca nu mai sunt task-uri in queue si daca toate
+nodurile au fost vizitate.
+-free_graph: eliberez memoria pentru graf
+-main: aloc si eliberez memoria pentru structurile de threadpool si graph si adaug un singur
+task in threadpool cel al nodului 0.
+
