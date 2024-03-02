@@ -1,0 +1,35 @@
+Nume: Andronic Dragos Sebastian
+Grupa: 336CC
+
+Surse de inspiratie: man, implementarea musl, ChatGPT
+
+string.c -> am urmarit implementarea de pe pagina https://www.techiedelight.com/implement-strcpy-function-c/
+pentru strcpy si am adaptat pentru fiecare cerinta in parte (in sensul de verific mereu daca destination nu e NULL
+retin adresa destinatiei in variabila ptr si fac parcurgerea in zonele de memorie folosind o bucla while, 
+exceptie facand strncpy). Pentru implementarea functiilor m-am folosit si de ChatGPT, iar functiile pentru lucru 
+cu memoria sunt doar o copie a functiilor pentru stringuri in care am facut un cast pentru a putea parcurge 
+zonele de memorie.
+
+puts -> am implementat o functie putc (inspiratie ChatGPT) si am definit EOF in internal/types.h ca fiind -1
+si am implementat functia puts (inspiratie ChatGPT).
+
+io -> surse: implementarea musl si man. Verific anumite erori de input, setez si returnez eroare, altfel 
+fac apel de sistem si in cazul in care valoarea returnata e mai mare de 4096UL returnez eroare si setez
+errno la valoarea negativa intoarsa de apelul de sistem sau returnez ce a intors apelul de sistem.
+
+stat -> implementez fstatat facand apel de sistem __NR_newfstatat si implementez stat si fstat cu ajutorul
+functiei fstatat (inspiratie implementare musl).
+
+time.h -> declar structura timespec si definitia pentru functia nano (inspiratie man)
+
+sleep si nanosleep -> pentru nanosleep am facut apel de sistem, iar pentru sleep declar o variabila de tip 
+timespec pe care o trimit ca parametru pentru functia nanosleep. (inspiratie implementare musl si man)
+
+mm -> pentru munmap si mremap fac doar apeluri de sistem, pentru mmap verific daca file descriptorul e valid
+(prin apel de sistem fcntl) si daca flagurile setate au sens.
+Pentru implementarea functiilor de alocare m-am folosit de lista data in schelet, pentru malloc si calloc
+adaug elementul alocat si dimensiunea in lista (folosesc mmap) si pentru free scot elementul din lista 
+(pentru dealocare folosesc munmap). Pentru functia de realloc ca sursa de inspiratie am folosit ChatGPT si man
+si am adaugat noul element alocat in lista, iar pentru reallocarray am folosit man.
+
+Am actualizat si fisierul Makefile incluzand puts.c, sleep.c si nanosleep.c.
